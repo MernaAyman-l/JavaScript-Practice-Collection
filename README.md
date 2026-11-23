@@ -20,7 +20,7 @@ A curated collection of beginner-to-intermediate JavaScript exercises and browse
 Example:
 
 ```html
-<script src="./Day2.js"></script>
+<script src="./01-Fundamentals/Day2-Arithmetic-and-Geometry.js"></script>
 ```
 
 ## Learning Topics
@@ -40,6 +40,7 @@ Example:
 - The original repositories are left unchanged; this collection is an additional, organized copy.
 - Some exercises are intentionally simple and demonstrate specific concepts rather than production-ready application patterns.
 - Review user input and output handling before reusing these examples in real applications.
+- These exercises are learning projects; they are not intended as production-ready applications.
 
 ## Author
 
