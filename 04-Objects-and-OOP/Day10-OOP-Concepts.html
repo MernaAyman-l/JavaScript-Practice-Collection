@@ -39,7 +39,7 @@
     <pre><code>
 class Person {
     constructor(name) {
-        this._name = name; // بنستخدم _ علشان نخليها خاصة
+        this._name = name; // underscore is a naming convention, not true JavaScript privacy
     }
 
     // Getter method علشان نقرأ قيمة _name
@@ -53,11 +53,11 @@ class Person {
     }
 }
 
-let person = new Person("Code Wave"); // هنا الاسم "John"
-console.log(person.name); // بنستخدم Getter علشان نقرأ الاسم: John
+let person = new Person("Code Wave"); // بننشئ object باسم Code Wave
+console.log(person.name); // بنستخدم Getter علشان نقرأ الاسم: Code Wave
 
 person.name = "Merna"; // بنستخدم Setter علشان نعدل الاسم
-console.log(person.name); // بنستخدم Getter علشان نقرأ الاسم الجديد: Jane
+console.log(person.name); // بنستخدم Getter علشان نقرأ الاسم الجديد: Merna
     </code></pre>
     <div class="output" id="output1"></div>
 
@@ -177,10 +177,10 @@ console.log(dog.speak()); // بنستدعي دالة speak: Rex barks.
             }
         }
 
-        let person = new Person("John");
+        let person = new Person("Code Wave");
         displayOutput("output1", `الاسم الأول: ${person.name}`);
 
-        person.name = "Jane";
+        person.name = "Merna";
         displayOutput("output1", document.getElementById("output1").innerText + `\nالاسم الجديد: ${person.name}`);
 
         // 2. Relationships Between Classes
