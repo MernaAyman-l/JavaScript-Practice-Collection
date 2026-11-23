@@ -39,50 +39,78 @@
 </head>
 <body>
     <script>
-        // أول حاجة، نسأل المستخدم عن عدد الأشخاص اللي هيضيفهم
-        let numOfPersons = parseInt(prompt("اكتب عدد الأشخاص اللي عايز تدخلهم (رقم بس):"), 10);
+        // Collect and validate user information. Cancel safely exits the exercise.
+        function askForInteger(message, min, max) {
+            while (true) {
+                const input = prompt(message);
+                if (input === null) return null;
 
-        // لو المستخدم دخل حاجة غلط أو مش رقم، هنطلب منه يدخل الرقم تاني
-        while (isNaN(numOfPersons) || numOfPersons <= 0) {
-            numOfPersons = parseInt(prompt("لازم تدخل رقم صحيح أكبر من 0! حاول تاني:"));
+                const value = input.trim();
+                if (/^\\d+$/.test(value)) {
+                    const number = Number(value);
+                    if (number >= min && (max === null || number <= max)) return number;
+                }
+                alert(max === null
+                    ? `Please enter a whole number greater than or equal to ${min}.`
+                    : `Please enter a whole number between ${min} and ${max}.`);
+            }
         }
 
-        // هنا هنخزن بيانات كل شخص
-        let users = [];
+        function askForName(index) {
+            while (true) {
+                const name = prompt(`اكتب اسم الشخص رقم ${index} (من 4 لـ 9 حروف):`);
+                if (name === null) return null;
+                const cleanName = name.trim();
+                if (cleanName.length >= 4 && cleanName.length <= 9) return cleanName;
+                alert("الاسم لازم يكون من 4 لـ 9 حروف.");
+            }
+        }
 
-        // نبدأ نكرر العملية حسب عدد الأشخاص اللي المستخدم دخلها
-        for (let i = 0; i < numOfPersons; i++) {
-            let name = prompt(`اكتب اسم الشخص رقم ${i + 1} (من 3 لـ 10 حروف):`);
-            
-            // نتأكد إن الاسم طوله صح
-            while (name.length <= 3 || name.length >= 10) {
-                name = prompt("الاسم لازم يكون أطول من 3 حروف وأقصر من 10. حاول تاني:");
+        const numOfPersons = askForInteger("اكتب عدد الأشخاص اللي عايز تدخلهم (رقم صحيح أكبر من 0):", 1, null);
+
+        if (numOfPersons !== null) {
+            const users = [];
+            let cancelled = false;
+
+            for (let i = 0; i < numOfPersons; i++) {
+                const name = askForName(i + 1);
+                if (name === null) {
+                    cancelled = true;
+                    break;
+                }
+
+                const age = askForInteger(`اكتب عمر الشخص رقم ${i + 1} (بين 11 و 59):`, 11, 59);
+                if (age === null) {
+                    cancelled = true;
+                    break;
+                }
+                users.push({ name, age });
             }
 
-            let age = parseInt(prompt(`اكتب عمر الشخص رقم ${i + 1} (بين 10 و 60):`), 10);
+            if (!cancelled) {
+                const table = document.createElement("table");
+                const header = table.insertRow();
+                ["الاسم", "العمر"].forEach(label => {
+                    const cell = document.createElement("th");
+                    cell.textContent = label;
+                    header.appendChild(cell);
+                });
 
-            // نتأكد إن العمر صح
-            while (isNaN(age) || age <= 10 || age >= 60) {
-                age = parseInt(prompt("العمر لازم يكون رقم بين 10 و 60. حاول تاني:"), 10);
+                users.forEach(user => {
+                    const row = table.insertRow();
+                    const nameCell = row.insertCell();
+                    const ageCell = row.insertCell();
+                    nameCell.textContent = user.name;
+                    ageCell.textContent = String(user.age);
+                });
+
+                document.body.appendChild(table);
+            } else {
+                document.body.textContent = "تم إلغاء إدخال البيانات.";
             }
-
-            // نضيف بيانات الشخص للآري
-            users.push({ name: name, age: age });
+        } else {
+            document.body.textContent = "تم إلغاء إدخال البيانات.";
         }
-
-        // نبدأ نجهز جدول HTML لعرض البيانات
-        let tableHTML = "<table><tr><th>الاسم</th><th>العمر</th></tr>";
-
-        // نضيف كل شخص للجدول
-        for (let user of users) {
-            tableHTML += `<tr><td>${user.name}</td><td>${user.age}</td></tr>`;
-        }
-
-        // نقفل الجدول
-        tableHTML += "</table>";
-
-        // نعرض الجدول على صفحة الويب
-        document.write(tableHTML);
     </script>
 </body>
 </html>
