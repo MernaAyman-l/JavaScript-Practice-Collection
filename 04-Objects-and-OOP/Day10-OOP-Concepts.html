@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شرح مفاهيم OOP في JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            color: #d63384;
+        }
+        .output {
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            white-space: pre-line; /* علشان النصوص تظهر في سطور منفصلة */
+        }
+    </style>
+</head>
+<body>
+    <h1>شرح مفاهيم OOP في JavaScript</h1>
+
+    <h2>1. Setter and Getter Methods</h2>
+    <pre><code>
+class Person {
+    constructor(name) {
+        this._name = name; // بنستخدم _ علشان نخليها خاصة
+    }
+
+    // Getter method علشان نقرأ قيمة _name
+    get name() {
+        return this._name; // بنرجع قيمة _name
+    }
+
+    // Setter method علشان نعدل قيمة _name
+    set name(newName) {
+        this._name = newName; // بنعدل قيمة _name
+    }
+}
+
+let person = new Person("Code Wave"); // هنا الاسم "John"
+console.log(person.name); // بنستخدم Getter علشان نقرأ الاسم: John
+
+person.name = "Merna"; // بنستخدم Setter علشان نعدل الاسم
+console.log(person.name); // بنستخدم Getter علشان نقرأ الاسم الجديد: Jane
+    </code></pre>
+    <div class="output" id="output1"></div>
+
+    <h2>2. Relationships Between Classes</h2>
+
+    <h3>Association</h3>
+    <pre><code>
+class Teacher {
+    constructor(name) {
+        this.name = name; // بنعرف خاصية name
+    }
+}
+
+class Student {
+    constructor(name, teacher) {
+        this.name = name; // بنعرف خاصية name
+        this.teacher = teacher; // بنعرف خاصية teacher
+    }
+}
+
+let teacher = new Teacher("Mr. Smith"); // بننشئ object من الكلاس Teacher
+let student = new Student("John", teacher); // هنا الاسم "John"
+
+console.log(student.teacher.name); // بنطبع اسم المدرس: Mr. Smith
+    </code></pre>
+    <div class="output" id="output2"></div>
+
+    <h3>Aggregation</h3>
+    <pre><code>
+class Classroom {
+    constructor(teacher) {
+        this.teacher = teacher; // بنعرف خاصية teacher
+        this.students = []; // بنعرف خاصية students ك array
+    }
+
+        addStudent(student) {
+        this.students.push(student); // بنضيف student ل array students
+    }
+}
+
+let classroom = new Classroom(teacher); // بننشئ object من الكلاس Classroom
+classroom.addStudent(student); // بنضيف student للفصل
+
+console.log(classroom.students.length); // بنطبع عدد الطلاب في الفصل: 1
+    </code></pre>
+    <div class="output" id="output3"></div>
+
+    <h3>Composition</h3>
+    <pre><code>
+class Engine {
+    start() {
+        return "Engine started"; // بنرجع رسالة لما المحرك يشتغل
+    }
+}
+
+class Car {
+    constructor() {
+        this.engine = new Engine(); // بننشئ object من الكلاس Engine
+    }
+
+    start() {
+        return `${this.engine.start()}, Car started`; // بنرجع رسالة لما العربية تتحرك
+    }
+}
+
+let car = new Car(); // بننشئ object من الكلاس Car
+console.log(car.start()); // بنشغل العربية: Engine started, Car started
+    </code></pre>
+    <div class="output" id="output4"></div>
+
+    <h2>3. Inheritance</h2>
+    <pre><code>
+class Animal {
+    constructor(name) {
+        this.name = name; // بنعرف خاصية name
+    }
+
+    speak() {
+        return `${this.name} makes a noise.`; // بنرجع رسالة
+    }
+}
+
+class Dog extends Animal {
+    constructor(name, breed) {
+        super(name); // نستدعي constructor الكلاس الأساسي
+        this.breed = breed; // بنعرف خاصية breed
+    }
+
+    speak() {
+        return `${this.name} barks.`; // بنرجع رسالة
+    }
+}
+
+let dog = new Dog("Rex", "German Shepherd"); // هنا الاسم "Rex"
+console.log(dog.speak()); // بنستدعي دالة speak: Rex barks.
+    </code></pre>
+    <div class="output" id="output5"></div>
+
+    <script>
+        // دالة علشان نعرض النتيجة في الصفحة
+        function displayOutput(id, message) {
+            document.getElementById(id).innerText = message;
+        }
+
+        // 1. Setter and Getter Methods
+        class Person {
+            constructor(name) {
+                this._name = name;
+            }
+
+            get name() {
+                return this._name;
+            }
+
+            set name(newName) {
+                this._name = newName;
+            }
+        }
+
+        let person = new Person("John");
+        displayOutput("output1", `الاسم الأول: ${person.name}`);
+
+        person.name = "Jane";
+        displayOutput("output1", document.getElementById("output1").innerText + `\nالاسم الجديد: ${person.name}`);
+
+        // 2. Relationships Between Classes
+
+        // Association
+        class Teacher {
+            constructor(name) {
+                this.name = name;
+            }
+        }
+
+        class Student {
+            constructor(name, teacher) {
+                this.name = name;
+                this.teacher = teacher;
+            }
+        }
+
+        let teacher = new Teacher("Mr. Smith");
+        let student = new Student("John", teacher);
+
+        displayOutput("output2", `اسم المدرس: ${student.teacher.name}`);
+
+        // Aggregation
+        class Classroom {
+            constructor(teacher) {
+                this.teacher = teacher;
+                this.students = [];
+            }
+
+            addStudent(student) {
+                this.students.push(student);
+            }
+        }
+
+        let classroom = new Classroom(teacher);
+        classroom.addStudent(student);
+
+        displayOutput("output3", `عدد الطلاب في الفصل: ${classroom.students.length}`);
+
+        // Composition
+        class Engine {
+            start() {
+                return "Engine started";
+            }
+        }
+
+        class Car {
+            constructor() {
+                this.engine = new Engine();
+            }
+
+            start() {
+                return `${this.engine.start()}, Car started`;
+            }
+        }
+
+        let car = new Car();
+        displayOutput("output4", car.start());
+
+        // 3. Inheritance
+        class Animal {
+            constructor(name) {
+                this.name = name;
+            }
+
+            speak() {
+                return `${this.name} makes a noise.`;
+            }
+        }
+
+        class Dog extends Animal {
+            constructor(name, breed) {
+                super(name);
+                this.breed = breed;
+            }
+
+            speak() {
+                return `${this.name} barks.`;
+            }
+        }
+
+        let dog = new Dog("Rex", "German Shepherd");
+        displayOutput("output5", dog.speak());
+    </script>
+</body>
+</html>
