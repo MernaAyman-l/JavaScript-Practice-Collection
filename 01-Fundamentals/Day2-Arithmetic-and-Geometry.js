@@ -10,7 +10,7 @@ num2 = Number(num2);
 console.log("Sum =", num1 + num2); // هنا بنجمع الرقمين
 console.log("Sub =", num1 - num2); // هنا بنطرح الرقمين
 console.log("Mult =", num1 * num2); // هنا بنضرب الرقمين
-console.log("Div =", num1 / num2); // هنا بنقسم الرقمين
+console.log("Div =", num2 === 0 ? "Undefined (division by zero)" : num1 / num2); // نتجنب القسمة على صفر
 console.log("Mod =", num1 % num2); // هنا بنحسب باقي القسمة بين الرقمين
 
 // 2. برنامج لحساب مساحة المستطيل
