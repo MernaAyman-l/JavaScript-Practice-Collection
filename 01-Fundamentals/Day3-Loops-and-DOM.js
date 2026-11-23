@@ -1,52 +1,45 @@
-// Task1
-// أول حاجة بنعمل متغيرات هنحتاجها
-let sum = 0; // علشان نحسب مجموع الأرقام
-let value; // علشان نخزن كل قيمة المستخدم يدخلها
+// Task 1: Keep asking for numbers until the user enters 0 or the sum exceeds 100.
+let sum = 0;
+let value;
 
 do {
-  // بنسأل المستخدم يدخل رقم
-value = prompt("Enter a number (stop when you enter 0 or the sum exceeds 100):");
+  const input = prompt("Enter a number (stop when you enter 0 or the sum exceeds 100):");
 
-  // بنتأكد إن المدخل رقم فعلاً
-if (isNaN(value)) {
-    alert("Please enter a valid number."); // لو مش رقم، بنقول له يدخل رقم
-continue; // نرجع نطلب منه يدخل رقم تاني
-}
+  // Stop safely if the user presses Cancel.
+  if (input === null) break;
 
-  value = Number(value); // نحول القيمة لرقم
-  sum += value; // نضيف القيمة للمجموع
+  if (input.trim() === "" || !Number.isFinite(Number(input))) {
+    alert("Please enter a valid number.");
+    continue;
+  }
 
-} while (value !== 0 && sum <= 100); // الشرط: نكمل لو القيمة مش صفر والمجموع أقل أو يساوي 100
+  value = Number(input);
+  sum += value;
+} while (value !== 0 && sum <= 100);
 
-// في الآخر، نعرض المجموع الكلي
 alert(`The total sum of the entered numbers is: ${sum}`);
 
-
-//Task2
-// بنعرض رسالة ترحيب
+// Task 2: Display a welcome message using a selected color.
 alert("Welcome to my site!");
 
-// بنسأل المستخدم عن اسمه
-let userName = prompt("Please enter your name:");
+const userName = prompt("Please enter your name:");
+const allowedColors = ["red", "green", "blue"];
+const colorInput = prompt("Choose a color (red, green, or blue):");
+const selectedColor = colorInput ? colorInput.trim().toLowerCase() : "";
+const safeColor = allowedColors.includes(selectedColor) ? selectedColor : "black";
 
-// المستخدم يختار لون (أحمر، أخضر، أو أزرق)
-let color = prompt("Choose a color (red, green, or blue):").toLowerCase(); // نحول الإدخال للحروف الصغيرة
+const welcomeMessage = document.createElement("p");
+welcomeMessage.style.color = safeColor;
+welcomeMessage.textContent = `Welcome ${userName === null ? "Guest" : userName}`;
+document.body.appendChild(welcomeMessage);
 
-// نعرض الترحيب بالاسم وباللون اللي اختاره
-document.body.innerHTML = `<p style="color: ${color}">Welcome ${userName}</p>`;
+// Task 3: Display the message in heading sizes from h1 to h6.
+const message = prompt("Enter a message to display:");
 
-//Task3
-
-// بنطلب من المستخدم يدخل رسالة
-let message = prompt("Enter a message to display:");
-
-// بنستخدم loop علشان نكرر من h1 لحد h6
-for (let i = 1; i <= 6; i++) {
-  // بنضيف كل عنصر عنوان مع الرسالة جوة الصفحة
-document.body.innerHTML += `<h${i}>${message}</h${i}>`;
+if (message !== null) {
+  for (let i = 1; i <= 6; i++) {
+    const heading = document.createElement(`h${i}`);
+    heading.textContent = message;
+    document.body.appendChild(heading);
+  }
 }
-
-
-
-
-
