@@ -69,7 +69,7 @@
 
         // 2. الفنكشن دي بتجمع أي عدد من الأرقام. لو أدخلت حاجة مش رقم، هتطلع error. لو كلهم أرقام، هتجمعهم.
         function addNumbers(...numbers) {
-            if (numbers.some(num => typeof num !== 'number')) {
+            if (numbers.some(num => typeof num !== 'number' || !Number.isFinite(num))) {
                 throw new Error("All parameters must be numerical values.");
             }
             return numbers.reduce((sum, num) => sum + num, 0);
@@ -82,7 +82,7 @@
 
         // 4. الفنكشن دي بتشوف إذا الرقم أولي ولا لا. الرقم الأولي هو اللي يقبل القسمة على نفسه وواحد بس.
         function isPrime(num) {
-            if (num <= 1) return false;
+            if (!Number.isInteger(num) || num <= 1) return false;
             if (num === 2) return true;
             if (num % 2 === 0) return false;
             for (let i = 3; i <= Math.sqrt(num); i += 2) {
