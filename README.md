@@ -47,6 +47,6 @@ Example:
 **Merna Ayman Louis**  
 Computer Science Graduate | Helwan University
 
-- Portfolio: https://mernaayman-l.github.io/Portfolio-Website/
-- GitHub: https://github.com/MernaAyman-l
-- LinkedIn: https://www.linkedin.com/in/merna-ayman-l/
+- Portfolio: [Personal Portfolio](https://mernaayman-l.github.io/Portfolio-Website/)
+- GitHub: [MernaAyman-l](https://github.com/MernaAyman-l)
+- LinkedIn: [Merna Ayman](https://www.linkedin.com/in/merna-ayman-l/)
