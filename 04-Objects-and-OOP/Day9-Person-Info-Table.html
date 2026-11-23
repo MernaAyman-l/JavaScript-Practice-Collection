@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض معلومات الأشخاص</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 50%;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #6200ea;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // أول حاجة، نسأل المستخدم عن عدد الأشخاص اللي هيضيفهم
+        let numOfPersons = parseInt(prompt("اكتب عدد الأشخاص اللي عايز تدخلهم (رقم بس):"));
+
+        // لو المستخدم دخل حاجة غلط أو مش رقم، هنطلب منه يدخل الرقم تاني
+        while (isNaN(numOfPersons) || numOfPersons <= 0) {
+            numOfPersons = parseInt(prompt("لازم تدخل رقم صحيح أكبر من 0! حاول تاني:"));
+        }
+
+        // هنا هنخزن بيانات كل شخص
+        let users = [];
+
+        // نبدأ نكرر العملية حسب عدد الأشخاص اللي المستخدم دخلها
+        for (let i = 0; i < numOfPersons; i++) {
+            let name = prompt(`اكتب اسم الشخص رقم ${i + 1} (من 3 لـ 10 حروف):`);
+            
+            // نتأكد إن الاسم طوله صح
+            while (name.length <= 3 || name.length >= 10) {
+                name = prompt("الاسم لازم يكون أطول من 3 حروف وأقصر من 10. حاول تاني:");
+            }
+
+            let age = parseInt(prompt(`اكتب عمر الشخص رقم ${i + 1} (بين 10 و 60):`));
+
+            // نتأكد إن العمر صح
+            while (isNaN(age) || age <= 10 || age >= 60) {
+                age = parseInt(prompt("العمر لازم يكون رقم بين 10 و 60. حاول تاني:"));
+            }
+
+            // نضيف بيانات الشخص للآري
+            users.push({ name: name, age: age });
+        }
+
+        // نبدأ نجهز جدول HTML لعرض البيانات
+        let tableHTML = "<table><tr><th>الاسم</th><th>العمر</th></tr>";
+
+        // نضيف كل شخص للجدول
+        for (let user of users) {
+            tableHTML += `<tr><td>${user.name}</td><td>${user.age}</td></tr>`;
+        }
+
+        // نقفل الجدول
+        tableHTML += "</table>";
+
+        // نعرض الجدول على صفحة الويب
+        document.write(tableHTML);
+    </script>
+</body>
+</html>
